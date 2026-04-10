@@ -2,6 +2,7 @@
 
 A modern, high-performance **Flutter Web Portfolio** showcasing my work as a Flutter & Mobile Engineer, built with animations, clean UI, and scalable architecture.
 
+🌐 Live Demo: https://flutter-portfolio-7e0c1.web.app
 ---
 
 ## 👨‍💻 About Me

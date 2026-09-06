@@ -9,6 +9,7 @@ import 'project_grid.dart';
 import 'experience_section.dart';
 import 'skills_section.dart';
 import 'contact_section.dart';
+import 'footer.dart';
 import 'shared/buttons.dart';
 
 class ContentLayer extends StatelessWidget {
@@ -114,6 +115,10 @@ class ContentLayer extends StatelessWidget {
               // ── Contact ──────────────────────────────────────────────────
               Container(key: contactKey),
               ContactSection(isMobile: isMobile),
+              SizedBox(height: vGap),
+
+              // ── Footer ───────────────────────────────────────────────────
+              PortfolioFooter(isMobile: isMobile),
             ],
           ),
         ),

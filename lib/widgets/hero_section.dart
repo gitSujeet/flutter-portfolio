@@ -6,6 +6,9 @@ import '../main.dart';
 import '../data/portfolio_data.dart';
 import 'shared/buttons.dart';
 
+// LinkedIn resume PDF — update this URL after uploading your CV
+const _cvUrl = 'https://www.linkedin.com/in/sujeet-kumar-ind/';
+
 class HeroSection extends StatefulWidget {
   final bool isMobile;
   final bool isTablet;
@@ -68,7 +71,10 @@ class _HeroSectionState extends State<HeroSection> {
     final titleFontSize =
         widget.isMobile ? 40.0 : widget.isTablet ? 48.0 : 56.0;
 
-    return Column(
+    // On desktop show photo side-by-side; on mobile/tablet stack vertically
+    final photoWidget = _ProfilePhoto(isMobile: widget.isMobile);
+
+    final textContent = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // "Available for Work" status badge
@@ -103,18 +109,15 @@ class _HeroSectionState extends State<HeroSection> {
         ShaderMask(
           blendMode: BlendMode.srcIn,
           shaderCallback: (bounds) => const LinearGradient(
-            colors: [
-              Color(0xFFA78BFA),
-              Color(0xFF6C63FF),
-              Color(0xFF00D4AA),
-            ],
+            colors: [Color(0xFFA78BFA), Color(0xFF6C63FF), Color(0xFF00D4AA)],
             stops: [0.0, 0.5, 1.0],
           ).createShader(bounds),
           child: Text(
             widget.isMobile ? 'SUJEET\nKUMAR' : 'SUJEET KUMAR',
-            style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                  fontSize: titleFontSize,
-                ),
+            style: Theme.of(context)
+                .textTheme
+                .displayLarge
+                ?.copyWith(fontSize: titleFontSize),
           ),
         ),
 
@@ -183,6 +186,12 @@ class _HeroSectionState extends State<HeroSection> {
               onTap: () =>
                   launchUrl(Uri.parse('mailto:sujeetkumarnmd@gmail.com')),
             ),
+            // TODO: Re-enable once CV PDF is uploaded
+            // OutlineButton(
+            //   label: 'Download CV',
+            //   icon: Icons.download_outlined,
+            //   onTap: () => launchUrl(Uri.parse(_cvUrl)),
+            // ),
             OutlineButton(
               label: 'GitHub',
               icon: Icons.code,
@@ -199,5 +208,86 @@ class _HeroSectionState extends State<HeroSection> {
         ).animate().fadeIn(delay: 600.ms).slideY(begin: 0.1),
       ],
     );
+
+    // Desktop: photo on the right, text on the left
+    if (!widget.isMobile && !widget.isTablet) {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(child: textContent),
+          const SizedBox(width: 48),
+          photoWidget,
+        ],
+      );
+    }
+
+    // Mobile / tablet: photo on top centered, then text
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (widget.isTablet) ...[
+          Center(child: photoWidget),
+          const SizedBox(height: 40),
+        ],
+        textContent,
+        if (widget.isMobile) ...[
+          const SizedBox(height: 32),
+          Center(child: photoWidget),
+        ],
+      ],
+    );
+  }
+}
+
+/// Circular profile photo with gradient ring and subtle glow.
+class _ProfilePhoto extends StatelessWidget {
+  final bool isMobile;
+  const _ProfilePhoto({required this.isMobile});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = isMobile ? 160.0 : 220.0;
+
+    return Semantics(
+      label: 'Profile photo of Sujeet Kumar',
+      child: Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: const LinearGradient(
+            colors: [AppTheme.primaryColor, AppTheme.secondaryColor],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: AppTheme.primaryColor.withValues(alpha: 0.35),
+              blurRadius: 32,
+              spreadRadius: 2,
+            ),
+          ],
+        ),
+        padding: const EdgeInsets.all(3), // ring thickness
+        child: Container(
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: AppTheme.bgColor,
+          ),
+          padding: const EdgeInsets.all(3),
+          child: ClipOval(
+            child: Image.asset(
+              'asset/Sujeet_formal.png',
+              width: size,
+              height: size,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      ),
+    )
+        .animate()
+        .fadeIn(delay: 200.ms, duration: 700.ms)
+        .scale(begin: const Offset(0.85, 0.85), delay: 200.ms, duration: 700.ms);
   }
 }

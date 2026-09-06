@@ -3,6 +3,7 @@ import '../state/scroll_state.dart';
 import '../widgets/content_layer.dart';
 import '../widgets/shared/particle_background.dart';
 import '../widgets/shared/spotlight_overlay.dart';
+import '../widgets/shared/scroll_to_top.dart';
 
 class PortfolioPage extends StatefulWidget {
   const PortfolioPage({super.key});
@@ -78,6 +79,9 @@ class _PortfolioPageState extends State<PortfolioPage> {
                 onNavigate: _scrollTo,
               ),
             ),
+
+            // Floating scroll-to-top button
+            ScrollToTopButton(scrollController: _scrollController),
           ],
         ),
       ),

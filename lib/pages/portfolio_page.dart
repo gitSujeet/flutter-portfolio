@@ -27,9 +27,8 @@ class _PortfolioPageState extends State<PortfolioPage> {
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(() {
-      _scrollState.updateOffset(_scrollController.offset);
-    });
+    // ScrollToTopButton listens directly to the controller;
+    // no need to mirror offset into PortfolioScrollState.
   }
 
   @override

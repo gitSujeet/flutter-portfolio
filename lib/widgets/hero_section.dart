@@ -6,9 +6,6 @@ import '../main.dart';
 import '../data/portfolio_data.dart';
 import 'shared/buttons.dart';
 
-// LinkedIn resume PDF — update this URL after uploading your CV
-const _cvUrl = 'https://www.linkedin.com/in/sujeet-kumar-ind/';
-
 class HeroSection extends StatefulWidget {
   final bool isMobile;
   final bool isTablet;
@@ -71,7 +68,6 @@ class _HeroSectionState extends State<HeroSection> {
     final titleFontSize =
         widget.isMobile ? 40.0 : widget.isTablet ? 48.0 : 56.0;
 
-    // On desktop show photo side-by-side; on mobile/tablet stack vertically
     final photoWidget = _ProfilePhoto(isMobile: widget.isMobile);
 
     final textContent = Column(
@@ -183,25 +179,25 @@ class _HeroSectionState extends State<HeroSection> {
           children: [
             CTAButton(
               label: 'Get in touch',
-              onTap: () =>
-                  launchUrl(Uri.parse('mailto:sujeetkumarnmd@gmail.com')),
+              onTap: () => launchUrl(
+                Uri.parse('mailto:sujeetkumarnmd@gmail.com'),
+                mode: LaunchMode.externalApplication,
+              ),
             ),
-            // TODO: Re-enable once CV PDF is uploaded
-            // OutlineButton(
-            //   label: 'Download CV',
-            //   icon: Icons.download_outlined,
-            //   onTap: () => launchUrl(Uri.parse(_cvUrl)),
-            // ),
-            OutlineButton(
+            PortfolioOutlineButton(
               label: 'GitHub',
               icon: Icons.code,
-              onTap: () => launchUrl(Uri.parse('https://github.com/gitSujeet')),
+              onTap: () => launchUrl(
+                Uri.parse('https://github.com/gitSujeet'),
+                mode: LaunchMode.externalApplication,
+              ),
             ),
-            OutlineButton(
+            PortfolioOutlineButton(
               label: 'LinkedIn',
               icon: Icons.link,
               onTap: () => launchUrl(
                 Uri.parse('https://www.linkedin.com/in/sujeet-kumar-ind/'),
+                mode: LaunchMode.externalApplication,
               ),
             ),
           ],
@@ -221,19 +217,13 @@ class _HeroSectionState extends State<HeroSection> {
       );
     }
 
-    // Mobile / tablet: photo on top centered, then text
+    // Mobile / tablet: photo on top centered, then text below
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (widget.isTablet) ...[
-          Center(child: photoWidget),
-          const SizedBox(height: 40),
-        ],
+        Center(child: photoWidget),
+        const SizedBox(height: 32),
         textContent,
-        if (widget.isMobile) ...[
-          const SizedBox(height: 32),
-          Center(child: photoWidget),
-        ],
       ],
     );
   }
@@ -277,7 +267,7 @@ class _ProfilePhoto extends StatelessWidget {
           padding: const EdgeInsets.all(3),
           child: ClipOval(
             child: Image.asset(
-              'asset/Sujeet_formal.png',
+              'asset/Sujeet_formal.jpg',
               width: size,
               height: size,
               fit: BoxFit.cover,

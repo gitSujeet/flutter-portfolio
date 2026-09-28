@@ -14,6 +14,10 @@ class _ParticleBackgroundState extends State<ParticleBackground>
   late final AnimationController _controller;
   late List<_Particle> _particles;
 
+  // Track which count was used so we only regenerate when the bucket changes,
+  // not on every MediaQuery update (e.g. scroll, keyboard, resize by 1px).
+  int _lastParticleCount = 0;
+
   @override
   void initState() {
     super.initState();
@@ -21,23 +25,32 @@ class _ParticleBackgroundState extends State<ParticleBackground>
       vsync: this,
       duration: const Duration(seconds: 20),
     )..repeat();
+
+    // Initialize with a sensible default; didChangeDependencies will refine
+    // on first layout if needed.
+    _particles = [];
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final w = MediaQuery.of(context).size.width;
-    final count = w < AppTheme.mobileBreakpoint ? 25 : 50;
-    final rng = Random();
-    _particles = List.generate(
-      count,
-      (_) => _Particle(
-        x: rng.nextDouble(),
-        y: rng.nextDouble(),
-        speed: 0.02 + rng.nextDouble() * 0.05,
-        size: 1.0 + rng.nextDouble() * 2.0,
-      ),
-    );
+    final targetCount = w < AppTheme.mobileBreakpoint ? 25 : 50;
+
+    // Only regenerate when the desired count changes (mobile ↔ desktop switch).
+    if (targetCount != _lastParticleCount) {
+      _lastParticleCount = targetCount;
+      final rng = Random();
+      _particles = List.generate(
+        targetCount,
+        (_) => _Particle(
+          x: rng.nextDouble(),
+          y: rng.nextDouble(),
+          speed: 0.02 + rng.nextDouble() * 0.05,
+          size: 1.0 + rng.nextDouble() * 2.0,
+        ),
+      );
+    }
   }
 
   @override
@@ -79,6 +92,8 @@ class _ParticlePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (particles.isEmpty) return;
+
     final positions = particles
         .map(
           (p) => Offset(

@@ -77,11 +77,11 @@ class _CTAButtonState extends State<CTAButton> {
 }
 
 /// Outlined secondary button with hover state.
-class OutlineButton extends StatefulWidget {
+class PortfolioOutlineButton extends StatefulWidget {
   final String label;
   final VoidCallback onTap;
   final IconData? icon;
-  const OutlineButton({
+  const PortfolioOutlineButton({
     super.key,
     required this.label,
     required this.onTap,
@@ -89,10 +89,10 @@ class OutlineButton extends StatefulWidget {
   });
 
   @override
-  State<OutlineButton> createState() => _OutlineButtonState();
+  State<PortfolioOutlineButton> createState() => _PortfolioOutlineButtonState();
 }
 
-class _OutlineButtonState extends State<OutlineButton> {
+class _PortfolioOutlineButtonState extends State<PortfolioOutlineButton> {
   bool _hovered = false;
 
   @override
@@ -249,13 +249,11 @@ class _BlinkingCursorState extends State<BlinkingCursor>
 class SectionLabel extends StatelessWidget {
   final String text;
   final String sectionId;
-  final dynamic scrollState; // PortfolioScrollState
 
   const SectionLabel({
     super.key,
     required this.text,
     required this.sectionId,
-    required this.scrollState,
   });
 
   @override

@@ -65,20 +65,26 @@ class _FooterLinks extends StatelessWidget {
       children: [
         _FooterLink(
           label: 'GitHub',
-          onTap: () => launchUrl(Uri.parse('https://github.com/gitSujeet')),
+          onTap: () => launchUrl(
+            Uri.parse('https://github.com/gitSujeet'),
+            mode: LaunchMode.externalApplication,
+          ),
         ),
         const SizedBox(width: 24),
         _FooterLink(
           label: 'LinkedIn',
           onTap: () => launchUrl(
             Uri.parse('https://www.linkedin.com/in/sujeet-kumar-ind/'),
+            mode: LaunchMode.externalApplication,
           ),
         ),
         const SizedBox(width: 24),
         _FooterLink(
           label: 'Email',
-          onTap: () =>
-              launchUrl(Uri.parse('mailto:sujeetkumarnmd@gmail.com')),
+          onTap: () => launchUrl(
+            Uri.parse('mailto:sujeetkumarnmd@gmail.com'),
+            mode: LaunchMode.externalApplication,
+          ),
         ),
       ],
     );

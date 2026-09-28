@@ -95,14 +95,17 @@ class _ContactSectionState extends State<ContactSection> {
                     _ContactDetail(
                       icon: Icons.phone_outlined,
                       label: '+91-7209106002',
-                      onTap: () =>
-                          launchUrl(Uri.parse('tel:+917209106002')),
+                      onTap: () => launchUrl(
+                        Uri.parse('tel:+917209106002'),
+                        mode: LaunchMode.externalApplication,
+                      ),
                     ),
                     _ContactDetail(
                       icon: Icons.email_outlined,
                       label: 'sujeetkumarnmd@gmail.com',
                       onTap: () => launchUrl(
                         Uri.parse('mailto:sujeetkumarnmd@gmail.com'),
+                        mode: LaunchMode.externalApplication,
                       ),
                     ),
                   ],
@@ -119,28 +122,33 @@ class _ContactSectionState extends State<ContactSection> {
                       label: 'Send Email',
                       onTap: () => launchUrl(
                         Uri.parse('mailto:sujeetkumarnmd@gmail.com'),
+                        mode: LaunchMode.externalApplication,
                       ),
                     ),
-                    OutlineButton(
+                    PortfolioOutlineButton(
                       label: 'GitHub',
                       icon: Icons.code,
                       onTap: () => launchUrl(
                         Uri.parse('https://github.com/gitSujeet'),
+                        mode: LaunchMode.externalApplication,
                       ),
                     ),
-                    OutlineButton(
+                    PortfolioOutlineButton(
                       label: 'LinkedIn',
                       icon: Icons.link,
                       onTap: () => launchUrl(
                         Uri.parse(
                             'https://www.linkedin.com/in/sujeet-kumar-ind/'),
+                        mode: LaunchMode.externalApplication,
                       ),
                     ),
-                    OutlineButton(
+                    PortfolioOutlineButton(
                       label: '+91-7209106002',
                       icon: Icons.phone_outlined,
-                      onTap: () =>
-                          launchUrl(Uri.parse('tel:+917209106002')),
+                      onTap: () => launchUrl(
+                        Uri.parse('tel:+917209106002'),
+                        mode: LaunchMode.externalApplication,
+                      ),
                     ),
                   ],
                 ),

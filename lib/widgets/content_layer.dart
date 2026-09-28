@@ -152,7 +152,6 @@ class _SectionLabel extends StatelessWidget {
       child: SectionLabel(
         text: text,
         sectionId: sectionId,
-        scrollState: scrollState,
       ),
     );
   }

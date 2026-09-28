@@ -73,8 +73,10 @@ class NavBar extends StatelessWidget {
                 const SizedBox(width: 32),
                 CTAButton(
                   label: 'Hire Me',
-                  onTap: () =>
-                      launchUrl(Uri.parse('mailto:sujeetkumarnmd@gmail.com')),
+                  onTap: () => launchUrl(
+                    Uri.parse('mailto:sujeetkumarnmd@gmail.com'),
+                    mode: LaunchMode.externalApplication,
+                  ),
                 ),
               ],
             )
@@ -130,7 +132,10 @@ class NavBar extends StatelessWidget {
                   label: 'Hire Me',
                   onTap: () {
                     Navigator.pop(context);
-                    launchUrl(Uri.parse('mailto:sujeetkumarnmd@gmail.com'));
+                    launchUrl(
+                      Uri.parse('mailto:sujeetkumarnmd@gmail.com'),
+                      mode: LaunchMode.externalApplication,
+                    );
                   },
                 ),
               ),
